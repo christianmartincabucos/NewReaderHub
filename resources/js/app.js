@@ -23,10 +23,10 @@ Vue.use(vuescroll);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    "notifications",
-    require("./components/Notifications.vue").default
-);
+Vue.component("notifications", require("./components/Notifications.vue").default);
+Vue.component("works", require("./components/Works.vue").default);
+Vue.component("saved", require("./components/Saved.vue").default);
+Vue.component("settings", require("./components/Settings.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

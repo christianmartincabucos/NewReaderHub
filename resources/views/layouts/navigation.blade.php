@@ -91,6 +91,9 @@
                 minScrollbarLength: 20
             });
         });
+        $(function () {
+            $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+        });
     </script>
 </body>
 

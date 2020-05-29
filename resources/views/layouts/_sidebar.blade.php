@@ -42,13 +42,13 @@
 
                 </li>
                 <li>
-                    <a class="collapsible-header waves-effect arrow-r">Works</a>
+                    <a href="/works" class="collapsible-header waves-effect arrow-r">Works</a>
                 </li>
                 <li>
-                    <a class="collapsible-header waves-effect arrow-r">Saved</a>
+                    <a href="/saved" class="collapsible-header waves-effect arrow-r">Saved</a>
                 </li>
                 <li>
-                    <a class="collapsible-header waves-effect arrow-r">Settings</a>
+                    <a href="/settings" class="collapsible-header waves-effect arrow-r">Settings</a>
                 </li>
 
             </ul>
