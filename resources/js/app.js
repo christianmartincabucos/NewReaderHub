@@ -27,6 +27,7 @@ Vue.component("notifications", require("./components/Notifications.vue").default
 Vue.component("works", require("./components/Works.vue").default);
 Vue.component("saved", require("./components/Saved.vue").default);
 Vue.component("settings", require("./components/Settings.vue").default);
+Vue.component("games", require("./components/Games.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

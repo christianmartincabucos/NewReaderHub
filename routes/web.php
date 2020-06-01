@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/saved', 'SavedController@index')->name('saved');
 Route::get('/works', 'WorksController@index')->name('works');
 Route::get('/settings', 'SettingsController@index')->name('settings');
+Route::get('/games', 'GamesController@index')->name('games');
 Route::get('/notifications', 'ProfileController@notifications')->name('notifications');
 Route::resource('profile', 'ProfileController');
 Route::resource('articles', 'ArticleController');

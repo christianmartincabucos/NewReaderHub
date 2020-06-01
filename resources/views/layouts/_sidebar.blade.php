@@ -32,7 +32,7 @@
                     <a href="/articles" class="collapsible-header waves-effect arrow-r">Articles</a>
                 </li>
                 <li>
-                    <a class="collapsible-header waves-effect arrow-r">Games</a>
+                    <a href="/games" class="collapsible-header waves-effect arrow-r">Games</a>
                 </li>
                 <li>
                     <a href="/profile" class="collapsible-header waves-effect arrow-r">Profile</a>
