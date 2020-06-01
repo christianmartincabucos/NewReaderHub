@@ -7571,7 +7571,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav-link[data-v-3a09080e]{\n    padding:0rem 0rem 0rem 0.5rem!important;\n}\n.nav-item[data-v-3a09080e]:hover{\n    background-color: transparent!important;\n}\n.md-pills li[data-v-3a09080e]{\n    padding:0.3rem!important;\n}\n", ""]);
+exports.push([module.i, "\n.nav-link[data-v-3a09080e]{\r\n    padding:0rem 0rem 0rem 0.5rem!important;\n}\n.nav-item[data-v-3a09080e]:hover{\r\n    background-color: transparent!important;\n}\n.md-pills li[data-v-3a09080e]{\r\n    padding:0.3rem!important;\n}\r\n", ""]);
 
 // exports
 
