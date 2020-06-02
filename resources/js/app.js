@@ -11,7 +11,6 @@ import vuescroll from "vuescroll/dist/vuescroll-native";
 
 window.Vue = require("vue");
 Vue.use(vuescroll);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,6 +27,11 @@ Vue.component("works", require("./components/Works.vue").default);
 Vue.component("saved", require("./components/Saved.vue").default);
 Vue.component("settings", require("./components/Settings.vue").default);
 Vue.component("games", require("./components/Games.vue").default);
+
+//layouts
+Vue.component("Navigation", require("./layouts/Navigation.vue").default);
+Vue.component("navbar", require("./layouts/_Navbar.vue").default);
+Vue.component("sidebar", require("./layouts/_Sidebar.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -69,10 +69,7 @@
                 </div>
             </div>
         </nav> -->
-        <header>
-            @extends('layouts._navbar')
-            @extends('layouts._sidebar')
-        </header>
+        <navigation logo="{{ asset('images/nrh/nrhub1.png') }}" profile="{{ asset('images/nrh/profile-pic.jpg') }}"></navigation>
         <main>
             @yield('content')
         </main>
@@ -80,21 +77,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $(".button-collapse").sideNav();
 
-            var container = document.querySelector('.custom-scrollbar');
-            var ps = new PerfectScrollbar(container, {
-                wheelSpeed: 2,
-                wheelPropagation: true,
-                minScrollbarLength: 20
-            });
-        });
-        $(function () {
-            $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-        });
-    </script>
 </body>
 
 </html>
