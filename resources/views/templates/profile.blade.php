@@ -95,7 +95,7 @@
         </section>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
-        <notifications profile="{{ asset('images/nrh/profile-pic.jpg') }}"></notifications>
+        <notify profile="{{ asset('images/nrh/profile-pic.jpg') }}"></notify>
     </div>
 </div>
 @endsection

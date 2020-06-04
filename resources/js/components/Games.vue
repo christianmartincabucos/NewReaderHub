@@ -1,6 +1,11 @@
 <template>
     <div class="col-lg-7 col-md-7 col-sm-7 ">
         <div class="card card-lightgray mt-72 mb-2">
+            <div class="card-header pl-2 p-1">
+                <a type="button" :hidden="mainGame" @click="BackToPrev(gameMenu, null, true)">
+                    <i class=" fas fa-chevron-circle-left"></i>
+                </a>
+            </div>
             <div class="card-body text-white">
                 <h1>{{ gameName }}</h1>
             </div>
@@ -15,7 +20,7 @@
                             <h3 class="">QUESTIONS</h3>
                         </div>
                         <div class="col-sm-8 pl-3 align-content-bottom mt-2">
-                            <a type="button" @click="TypeOfGame">PLAY NOW  ></a>
+                            <a type="button" @click="GameSelected('questionMenu', questionType.questionmeme, true)">PLAY NOW  ></a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +48,7 @@
                             <h3 class="">TRIVIA</h3>
                         </div>
                         <div class="col-sm-8 pl-3 align-content-bottom mt-2">
-                            <a type="button">PLAY NOW  ></a>
+                            <a type="button" @click="GameSelected('triviaMenu', questionType.trivia, true)">PLAY NOW  ></a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +62,7 @@
                             <h3 class="">INTERESTS</h3>
                         </div>
                         <div class="col-sm-8 pl-3 align-content-bottom mt-2">
-                            <a type="button">PLAY NOW  ></a>
+                            <a type="button" @click="GameSelected('interestMain', questionType.interestMain, true)">PLAY NOW  ></a>
                         </div>
                     </div>
                 </div>
@@ -70,10 +75,17 @@
                 </div>
             </div>
             <div class="card card-lightgray mt-3">
-                <div class="card-body text-center" v-if="answerType">
+                <div class="card-body text-center" v-if="gameCategory.questionMenu.main">
+                    <div class="md-form">
+                        <input type="text" id="form1" class="form-control" style="border-bottom: 1px solid #fff!important;">
+                        <label for="form1">Enter your answer...</label>
+
+                    </div>
+                </div>
+                <div class="card-body text-center" v-if="gameCategory.triviaMenu">
                     <div class="row pl-5">
                         <div class="col-sm-4 pb-5 px-2">
-                            <a type="button" @click.prevent="TypeOfArtist">
+                            <a type="button" @click.prevent="SelectedChoice('artistType', questionType.art, true)">
                                 <div class="question-box px-2">
                                     <div class="form-check form-check-inline d-flex justify-content-start">
                                         <input type="radio" class="form-check-input mr-2" id="materialInline1" name="inlineMaterialRadiosExample">
@@ -126,10 +138,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body text-center" v-if="kindArtist">
+                <div class="card-body text-center" v-if="gameCategory.interestsMenu.main">
                     <div class="row">
                         <div class="col-sm-4 py-4 px-2">
-                            <a type="button" @click="ArtOfType">
+                            <a type="button"  @click="GameSelected('interestSub', questionType.subInterest, true)">
                                 <div class="artist-box p-2">
                                     <div class="form-check form-check-inline d-flex justify-content-start">
                                         <input type="radio" class="form-check-input mr-2" id="materialInline1" name="inlineMaterialRadiosExample">
@@ -203,7 +215,7 @@
 
                     </div>
                 </div>
-                <div class="card-body text-center" v-if="kindArtType">
+                <div class="card-body text-center" v-if="gameCategory.interestsMenu.sub">
                     <div class="row">
                         <div class="col-sm-3 py-1 px-1">
                             <a type="button">
@@ -434,33 +446,155 @@
 export default {
     data(){
         return{
-            question1:"Question 1: What kind of artist are you?",
-            gameName: "Games",
-            answerType: true,
-            kindArtist: false,
-            kindArt:false,
-            kindArtType:false,
-            gamesTypes:true,
+            gameSelected        :{
+                1               : 'Interests',
+                2               : 'Puzzles',
+                3               : 'Trivia',
+                4               : 'Questions'
+            },
+            questionType:{
+                trivia          : "Question 1: What kind of artist are you?",
+                interestMain    : "What would kind of art are you most fond of?",
+                subInterest     : "What would kind of visual art are you most fond of?",
+                questionmeme    : "What do you think of meme culture?"
+            },
+            gameCategory        : {
+                questionMenu    : {
+                    main        : false
+                },
+                puzzlesMenu     : false,
+                triviaMenu      : false,
+                interestsMenu   : {
+                    main        : false,
+                    sub         : false
+                }
+            },
+            gameMenu            : '',
+            gameName            : 'Games',
+            question1           : '',
+            mainGame            : true,
+            gamesTypes          : true,
+            triviaMain          : false,
+
         }
     },
 
     methods:{
-        TypeOfGame(){
-            this.gamesTypes = false;
-            this.gameName   = "Interests"
-        },
-        TypeOfArtist(){
-            this.question1  = "What would kind of art are you most fond of?";
-            this.kindArtist = true;
-            this.answerType = false;
+        GameSelected(e, data, choice){
+            switch (e) {
+                case 'questionMenu':
+                    // console.log(this.gameCategory.questionMenu.main);
+                    this.gameMenu                         = 'questionMenu';
+                    this.gameCategory.questionMenu.main   = choice;
+                    this.gameCategory.triviaMenu          = !choice;
+                    this.gameCategory.interestsMenu.main  = !choice;
+                    this.gameCategory.interestsMenu.sub   = !choice;
+                    this.mainGame                         = !choice
+                    this.question1                        = data;
+                    this.gamesTypes                       = !choice;
+                    this.gameName                         = this.gameSelected[4];
+                break;
+                case 'triviaMenu':
+                    this.gameMenu                         = 'triviaMenu';
+                    this.gameCategory.interestsMenu.sub   = !choice;
+                    this.gameCategory.questionMenu.main   = !choice;
+                    this.gameCategory.triviaMenu          = choice;
+                    this.gamesTypes                       = !choice;
+                    this.mainGame                         = !choice
+                    this.triviaMain                       = choice;
+                    this.question1                        = data;
+                    this.gameName                         = this.gameSelected[3];
+                break;
+                case 'interestMain':
+                    this.gameMenu                         = 'interestMain';
+                    this.gameCategory.questionMenu.main   = !choice;
+                    this.gameCategory.interestsMenu.sub   = !choice;
+                    this.gameCategory.triviaMenu          = !choice;
+                    this.gameCategory.interestsMenu.main  = choice;
+                    this.gamesTypes                       = !choice;
+                    this.triviaMain                       = choice;
+                    this.mainGame                         = !choice
+                    this.question1                        = data;
+                    this.gameName                         = this.gameSelected[1];
+                break;
+                case 'interestSub':
+                    this.gameMenu                         = 'interestSub';
+                    this.gameCategory.guestionMenu        = !choice;
+                    this.gameCategory.triviaMenu          = !choice;
+                    this.gameCategory.interestsMenu.main  = !choice;
+                    this.gameCategory.interestsMenu.sub   = choice;
+                    this.mainGame                         = !choice
+                    this.gamesTypes                       = !choice;
+                    this.triviaMain                       = choice;
+                    this.question1                        = data;
+                    this.gameName                         = this.gameSelected[1];
+
+                break;
+                default:
+                break;
+            }
         },
 
-        ArtOfType(){
-            this.question1   = "What would kind of visual art are you most fond of?";
-            this.kindArtist  = false;
-            this.kindArtType = true;
+        /* SelectedChoice(e, data, choice){
+            switch (e) {
+                case 'gameType':
+                    this.gamesTypes = !choice;
+                    this.mainGame   = !choice;
+                    this.gameName   = this.gameSelected[data];
+                    this.question1  = this.questionType.kindartist;
+                    this.gameMenu   = 'gameType';
+                break;
+                case 'artistType':
+                    this.kindArtist = choice;
+                    this.answerType = !choice;
+                    this.gameMenu   = 'artistType';
+                    this.question1  = data;
+
+                break;
+                case 'artType':
+                    this.kindArtist  = !choice;
+                    this.kindArtType = choice;
+                    this.gameMenu    = 'artType';
+                    this.question1   = data;
+                break;
+                default:
+                    alert('Please enter your answer!');
+                break;
+            }
+        }, */
+
+        BackToPrev(e, data, choice){
+            switch (e) {
+                case 'questionMenu':
+                    this.gameCategory.questionMenu.main   = !choice;
+                    this.mainGame                         = choice
+                    this.gamesTypes                       = choice;
+                    this.gameName                         = 'Games';
+
+                break;
+                case 'triviaMenu':
+                    this.gameMenu   = 'questionMenu';
+                    this.gameCategory.questionMenu.main   = !choice;
+                    this.mainGame                         = choice
+                    this.gamesTypes                       = choice;
+                    this.gameName                         = 'Games';
+
+                break;
+                case 'interestMain':
+                    this.gameMenu   = 'triviaMenu';
+                    this.gameCategory.questionMenu.main   = !choice;
+                    this.mainGame                         = choice
+                    this.gamesTypes                       = choice;
+                    this.gameName                         = 'Games';
+
+                break;
+                case 'interestSub':
+                    return this.GameSelected('interestMain', this.questionType.interestMain, true);
+                break;
+                default:
+                break;
+            }
         }
-
 
     }
 }

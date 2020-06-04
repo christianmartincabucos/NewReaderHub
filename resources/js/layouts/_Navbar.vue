@@ -13,11 +13,6 @@
                     class="form-control form-control-sm"
                     type="text"
                     placeholder="Search...."
-
-                    :options="options"
-                    v-on:selected="validateSelection"
-                    v-on:filter="getDropdownValues"
-                    :disabled="false"
                 >
             </div>
             <ul class="navbar-nav ml-5">

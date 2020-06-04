@@ -57,7 +57,7 @@
             <li>
                 <ul class="collapsible collapsible-accordion">
                     <li>
-                        <a href="/logout" class="collapsible-header waves-effect arrow-r mb-5">Logout</a>
+                        <a href="/" class="collapsible-header waves-effect arrow-r mb-5">Logout</a>
                     </li>
                 </ul>
             </li>

@@ -2535,32 +2535,169 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      question1: "Question 1: What kind of artist are you?",
-      gameName: "Games",
-      answerType: true,
-      kindArtist: false,
-      kindArt: false,
-      kindArtType: false,
-      gamesTypes: true
+      gameSelected: {
+        1: 'Interests',
+        2: 'Puzzles',
+        3: 'Trivia',
+        4: 'Questions'
+      },
+      questionType: {
+        trivia: "Question 1: What kind of artist are you?",
+        interestMain: "What would kind of art are you most fond of?",
+        subInterest: "What would kind of visual art are you most fond of?",
+        questionmeme: "What do you think of meme culture?"
+      },
+      gameCategory: {
+        questionMenu: {
+          main: false
+        },
+        puzzlesMenu: false,
+        triviaMenu: false,
+        interestsMenu: {
+          main: false,
+          sub: false
+        }
+      },
+      gameMenu: '',
+      gameName: 'Games',
+      question1: '',
+      mainGame: true,
+      gamesTypes: true,
+      triviaMain: false
     };
   },
   methods: {
-    TypeOfGame: function TypeOfGame() {
-      this.gamesTypes = false;
-      this.gameName = "Interests";
+    GameSelected: function GameSelected(e, data, choice) {
+      switch (e) {
+        case 'questionMenu':
+          // console.log(this.gameCategory.questionMenu.main);
+          this.gameMenu = 'questionMenu';
+          this.gameCategory.questionMenu.main = choice;
+          this.gameCategory.triviaMenu = !choice;
+          this.gameCategory.interestsMenu.main = !choice;
+          this.gameCategory.interestsMenu.sub = !choice;
+          this.mainGame = !choice;
+          this.question1 = data;
+          this.gamesTypes = !choice;
+          this.gameName = this.gameSelected[4];
+          break;
+
+        case 'triviaMenu':
+          this.gameMenu = 'triviaMenu';
+          this.gameCategory.interestsMenu.sub = !choice;
+          this.gameCategory.questionMenu.main = !choice;
+          this.gameCategory.triviaMenu = choice;
+          this.gamesTypes = !choice;
+          this.mainGame = !choice;
+          this.triviaMain = choice;
+          this.question1 = data;
+          this.gameName = this.gameSelected[3];
+          break;
+
+        case 'interestMain':
+          this.gameMenu = 'interestMain';
+          this.gameCategory.questionMenu.main = !choice;
+          this.gameCategory.interestsMenu.sub = !choice;
+          this.gameCategory.triviaMenu = !choice;
+          this.gameCategory.interestsMenu.main = choice;
+          this.gamesTypes = !choice;
+          this.triviaMain = choice;
+          this.mainGame = !choice;
+          this.question1 = data;
+          this.gameName = this.gameSelected[1];
+          break;
+
+        case 'interestSub':
+          this.gameMenu = 'interestSub';
+          this.gameCategory.guestionMenu = !choice;
+          this.gameCategory.triviaMenu = !choice;
+          this.gameCategory.interestsMenu.main = !choice;
+          this.gameCategory.interestsMenu.sub = choice;
+          this.mainGame = !choice;
+          this.gamesTypes = !choice;
+          this.triviaMain = choice;
+          this.question1 = data;
+          this.gameName = this.gameSelected[1];
+          break;
+
+        default:
+          break;
+      }
     },
-    TypeOfArtist: function TypeOfArtist() {
-      this.question1 = "What would kind of art are you most fond of?";
-      this.kindArtist = true;
-      this.answerType = false;
-    },
-    ArtOfType: function ArtOfType() {
-      this.question1 = "What would kind of visual art are you most fond of?";
-      this.kindArtist = false;
-      this.kindArtType = true;
+
+    /* SelectedChoice(e, data, choice){
+        switch (e) {
+            case 'gameType':
+                this.gamesTypes = !choice;
+                this.mainGame   = !choice;
+                this.gameName   = this.gameSelected[data];
+                this.question1  = this.questionType.kindartist;
+                this.gameMenu   = 'gameType';
+            break;
+            case 'artistType':
+                this.kindArtist = choice;
+                this.answerType = !choice;
+                this.gameMenu   = 'artistType';
+                this.question1  = data;
+             break;
+            case 'artType':
+                this.kindArtist  = !choice;
+                this.kindArtType = choice;
+                this.gameMenu    = 'artType';
+                this.question1   = data;
+            break;
+            default:
+                alert('Please enter your answer!');
+            break;
+        }
+    }, */
+    BackToPrev: function BackToPrev(e, data, choice) {
+      switch (e) {
+        case 'questionMenu':
+          this.gameCategory.questionMenu.main = !choice;
+          this.mainGame = choice;
+          this.gamesTypes = choice;
+          this.gameName = 'Games';
+          break;
+
+        case 'triviaMenu':
+          this.gameMenu = 'questionMenu';
+          this.gameCategory.questionMenu.main = !choice;
+          this.mainGame = choice;
+          this.gamesTypes = choice;
+          this.gameName = 'Games';
+          break;
+
+        case 'interestMain':
+          this.gameMenu = 'triviaMenu';
+          this.gameCategory.questionMenu.main = !choice;
+          this.mainGame = choice;
+          this.gamesTypes = choice;
+          this.gameName = 'Games';
+          break;
+
+        case 'interestSub':
+          return this.GameSelected('interestMain', this.questionType.interestMain, true);
+          break;
+
+        default:
+          break;
+      }
     }
   }
 });
@@ -2578,6 +2715,64 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuescroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuescroll */ "./node_modules/vuescroll/dist/vuescroll.js");
 /* harmony import */ var vuescroll__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuescroll__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2827,7 +3022,7 @@ var easings = ['easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'eas
           scrollingY: true,
           speed: 300,
           easing: 'easeInQuad',
-          maxHeight: 560,
+          maxHeight: 650,
           verticalNativeBarPos: 'right'
         },
         rail: {
@@ -3698,6 +3893,295 @@ var easings = ['easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'eas
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuescroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuescroll */ "./node_modules/vuescroll/dist/vuescroll.js");
+/* harmony import */ var vuescroll__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuescroll__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var easings = ['easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'easeOutCubic', 'easeInOutCubic', 'easeInQuart', 'easeOutQuart', 'easeInOutQuart', 'easeInQuint', 'easeOutQuint', 'easeInOutQuint'];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['profile'],
+  components: {
+    vuescroll: vuescroll__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  data: function data() {
+    return {
+      ops: {
+        vuescroll: {
+          mode: 'native',
+          sizeStrategy: 'percent',
+          detectResize: false
+        },
+        scrollPanel: {
+          initialScrollY: false,
+          initialScrollX: false,
+          scrollingX: true,
+          scrollingY: true,
+          speed: 300,
+          easing: 'easeInQuad',
+          maxHeight: 560,
+          verticalNativeBarPos: 'right'
+        },
+        rail: {
+          background: '#01a99a',
+          opacity: 0,
+          size: '6px',
+          specifyBorderRadius: false,
+          gutterOfEnds: null,
+          gutterOfSide: '2px',
+          keepShow: false
+        },
+        bar: {
+          showDelay: 500,
+          onlyShowBarOnScroll: true,
+          keepShow: false,
+          background: 'dimgrey',
+          opacity: 1,
+          specifyBorderRadius: false,
+          minSize: 0,
+          size: '10px',
+          disable: false
+        }
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layouts/Navigation.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layouts/Navigation.vue?vue&type=script&lang=js& ***!
@@ -3728,11 +4212,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8401,7 +8880,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav-link[data-v-3a09080e]{\n    padding:0rem 0rem 0rem 0.5rem!important;\n}\n.nav-item[data-v-3a09080e]:hover{\n    background-color: transparent!important;\n}\n.md-pills li[data-v-3a09080e]{\n    padding:0.3rem!important;\n}\n", ""]);
+exports.push([module.i, "\n.nav-link[data-v-3a09080e]{\r\n    padding:0rem 0rem 0rem 0.5rem!important;\n}\n.nav-item[data-v-3a09080e]:hover{\r\n    background-color: transparent!important;\n}\n.md-pills li[data-v-3a09080e]{\r\n    padding:0.3rem!important;\n}\r\n", ""]);
 
 // exports
 
@@ -40304,6 +40783,21 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-lg-7 col-md-7 col-sm-7 " }, [
     _c("div", { staticClass: "card card-lightgray mt-72 mb-2" }, [
+      _c("div", { staticClass: "card-header pl-2 p-1" }, [
+        _c(
+          "a",
+          {
+            attrs: { type: "button", hidden: _vm.mainGame },
+            on: {
+              click: function($event) {
+                return _vm.BackToPrev(_vm.gameMenu, null, true)
+              }
+            }
+          },
+          [_c("i", { staticClass: " fas fa-chevron-circle-left" })]
+        )
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "card-body text-white" }, [
         _c("h1", [_vm._v(_vm._s(_vm.gameName))])
       ])
@@ -40332,7 +40826,15 @@ var render = function() {
                         "a",
                         {
                           attrs: { type: "button" },
-                          on: { click: _vm.TypeOfGame }
+                          on: {
+                            click: function($event) {
+                              return _vm.GameSelected(
+                                "questionMenu",
+                                _vm.questionType.questionmeme,
+                                true
+                              )
+                            }
+                          }
                         },
                         [_vm._v("PLAY NOW  >")]
                       )
@@ -40345,9 +40847,85 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _vm._m(2),
+          _c("div", { staticClass: "card my-1 mb-3" }, [
+            _c("div", { staticClass: "card-header pr-1 pt-4 pb-5 card-gray" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body rounded p-1" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "d-flex align-content-bottom justify-content-between font-weight-bold"
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-8 pl-3 align-content-bottom mt-2" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.GameSelected(
+                                "triviaMenu",
+                                _vm.questionType.trivia,
+                                true
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("PLAY NOW  >")]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
-          _vm._m(3)
+          _c("div", { staticClass: "card my-1 mb-3" }, [
+            _c("div", { staticClass: "card-header pr-1 pt-4 pb-5 card-gray" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body rounded p-1" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "d-flex align-content-bottom justify-content-between font-weight-bold"
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-8 pl-3 align-content-bottom mt-2" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.GameSelected(
+                                "interestMain",
+                                _vm.questionType.interestMain,
+                                true
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("PLAY NOW  >")]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          ])
         ])
       : _c("div", [
           _c("div", { staticClass: "card card-lightgray mt-2 mb-2" }, [
@@ -40357,7 +40935,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card card-lightgray mt-3" }, [
-            _vm.answerType
+            _vm.gameCategory.questionMenu.main
+              ? _c("div", { staticClass: "card-body text-center" }, [_vm._m(4)])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.gameCategory.triviaMenu
               ? _c("div", { staticClass: "card-body text-center" }, [
                   _c("div", { staticClass: "row pl-5" }, [
                     _c("div", { staticClass: "col-sm-4 pb-5 px-2" }, [
@@ -40368,15 +40950,17 @@ var render = function() {
                           on: {
                             click: function($event) {
                               $event.preventDefault()
-                              return _vm.TypeOfArtist($event)
+                              return _vm.SelectedChoice(
+                                "artistType",
+                                _vm.questionType.art,
+                                true
+                              )
                             }
                           }
                         },
-                        [_vm._m(4)]
+                        [_vm._m(5)]
                       )
                     ]),
-                    _vm._v(" "),
-                    _vm._m(5),
                     _vm._v(" "),
                     _vm._m(6),
                     _vm._v(" "),
@@ -40384,12 +40968,14 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(8),
                     _vm._v(" "),
-                    _vm._m(9)
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _vm._m(10)
                   ])
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.kindArtist
+            _vm.gameCategory.interestsMenu.main
               ? _c("div", { staticClass: "card-body text-center" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-sm-4 py-4 px-2" }, [
@@ -40397,13 +40983,19 @@ var render = function() {
                         "a",
                         {
                           attrs: { type: "button" },
-                          on: { click: _vm.ArtOfType }
+                          on: {
+                            click: function($event) {
+                              return _vm.GameSelected(
+                                "interestSub",
+                                _vm.questionType.subInterest,
+                                true
+                              )
+                            }
+                          }
                         },
-                        [_vm._m(10)]
+                        [_vm._m(11)]
                       )
                     ]),
-                    _vm._v(" "),
-                    _vm._m(11),
                     _vm._v(" "),
                     _vm._m(12),
                     _vm._v(" "),
@@ -40411,14 +41003,16 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(14),
                     _vm._v(" "),
-                    _vm._m(15)
+                    _vm._m(15),
+                    _vm._v(" "),
+                    _vm._m(16)
                   ])
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.kindArtType
+            _vm.gameCategory.interestsMenu.sub
               ? _c("div", { staticClass: "card-body text-center" }, [
-                  _vm._m(16)
+                  _vm._m(17)
                 ])
               : _vm._e()
           ])
@@ -40467,58 +41061,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card my-1 mb-3" }, [
-      _c("div", { staticClass: "card-header pr-1 pt-4 pb-5 card-gray" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body rounded p-1" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex align-content-bottom justify-content-between font-weight-bold"
-          },
-          [
-            _c("div", { staticClass: "col-sm-4 pl-2 pr-0" }, [
-              _c("h3", {}, [_vm._v("TRIVIA")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-sm-8 pl-3 align-content-bottom mt-2" },
-              [_c("a", { attrs: { type: "button" } }, [_vm._v("PLAY NOW  >")])]
-            )
-          ]
-        )
-      ])
+    return _c("div", { staticClass: "col-sm-4 pl-2 pr-0" }, [
+      _c("h3", {}, [_vm._v("TRIVIA")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card my-1 mb-3" }, [
-      _c("div", { staticClass: "card-header pr-1 pt-4 pb-5 card-gray" }),
+    return _c("div", { staticClass: "col-sm-4 pl-2 pr-0" }, [
+      _c("h3", {}, [_vm._v("INTERESTS")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md-form" }, [
+      _c("input", {
+        staticClass: "form-control",
+        staticStyle: { "border-bottom": "1px solid #fff!important" },
+        attrs: { type: "text", id: "form1" }
+      }),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body rounded p-1" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex align-content-bottom justify-content-between font-weight-bold"
-          },
-          [
-            _c("div", { staticClass: "col-sm-4 pl-2 pr-0" }, [
-              _c("h3", {}, [_vm._v("INTERESTS")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-sm-8 pl-3 align-content-bottom mt-2" },
-              [_c("a", { attrs: { type: "button" } }, [_vm._v("PLAY NOW  >")])]
-            )
-          ]
-        )
-      ])
+      _c("label", { attrs: { for: "form1" } }, [_vm._v("Enter your answer...")])
     ])
   },
   function() {
@@ -41323,688 +41889,688 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "container-fluid container-padding" }, [
+  return _c("vue-scroll", { attrs: { ops: _vm.ops } }, [
     _c(
-      "div",
-      { staticClass: "card card-wrapper card-gray" },
+      "section",
+      {
+        staticClass:
+          "container-fluid container-padding card-wrapper dimgrey px-3"
+      },
       [
-        _c("vue-scroll", { attrs: { ops: _vm.ops } }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+        _c("div", { staticClass: "row pl-3" }, [
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col p-0" }, [
-              _c("div", { staticClass: "card mb-2" }, [
-                _c("div", { staticClass: "card-header" }),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-5 mt-1 px-1" }, [
+            _c("div", { staticClass: "card mb-2" }, [
+              _c("div", { staticClass: "card-body card-gray rounded p-2" }, [
+                _c("div", { staticClass: "d-flex justify-content-end pr-2" }, [
+                  _c("div", { staticClass: "float-right text-white" }, [
+                    _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between mt-2" },
-                      [
-                        _c("img", {
-                          staticClass: "ml-4 rounded-circle z-depth-2",
-                          attrs: {
-                            alt: "100x100",
-                            height: "50",
-                            width: "50",
-                            src: _vm.profile,
-                            "data-holder-rendered": "true"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-7" }, [
-                          _c("h5", [
-                            _vm._v(
-                              "John Doe\n                                        "
-                            ),
-                            _c(
-                              "h6",
-                              { staticClass: "h6-responsive text-muted" },
-                              [_vm._v("posted 15 hours ago")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "h6",
-                            {
-                              staticClass: "font-weight-bold",
-                              staticStyle: { "font-size": "0.7rem" }
-                            },
-                            [
-                              _vm._v("10 Ways Artists can improve their art"),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "font-weight-bold",
-                                  staticStyle: { "font-size": "0.5rem" }
-                                },
-                                [
-                                  _vm._v(
-                                    " Things you should know to better yourself"
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass: "mr-2",
-                          staticStyle: {
-                            width: "80px",
-                            height: "80px",
-                            padding: "10px",
-                            background: "#fff",
-                            margin: "0"
-                          }
-                        })
-                      ]
-                    ),
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-4" }, [
+                      _c("img", {
+                        staticClass: "ml-4 rounded-circle z-depth-2",
+                        attrs: {
+                          alt: "100x100",
+                          height: "50",
+                          width: "50",
+                          src: _vm.profile,
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "d-flex justify-content-end" }, [
-                      _c("div", { staticClass: "float-right text-white" }, [
-                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          "John Doe\n                                                "
+                        ),
+                        _c(
+                          "h6",
+                          {
+                            staticClass: "h6-responsive text-muted",
+                            staticStyle: { "font-size": "0.7rem" }
+                          },
+                          [
+                            _vm._v("Like my post "),
+                            _c("br"),
+                            _vm._v("15 hours ago")
+                          ]
+                        )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "mr-5 mt-3",
+                    staticStyle: {
+                      width: "80px",
+                      height: "80px",
+                      background: "#fff",
+                      margin: "0px 0px -25px 0px"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "justify-content-between" }, [
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c(
+                      "h6",
+                      {
+                        staticClass: "font-weight-bold",
+                        staticStyle: { "font-size": "0.7rem" }
+                      },
+                      [
+                        _vm._v("10 Ways Artists can improve their art"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "i",
+                          {
+                            staticClass: "font-weight-bold",
+                            staticStyle: { "font-size": "0.5rem" }
+                          },
+                          [_vm._v(" Things you should know to better yourself")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
             ])
           ])
         ])
-      ],
-      1
+      ]
     )
   ])
 }
@@ -43438,6 +44004,713 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "container-fluid container-padding" }, [
+    _c(
+      "div",
+      { staticClass: "card card-wrapper card-gray" },
+      [
+        _c("vue-scroll", { attrs: { ops: _vm.ops } }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 pt-1 px-1" }, [
+              _c("div", { staticClass: "card mb-2" }, [
+                _c("div", { staticClass: "card-header" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body dimgrey rounded-bottom p-2" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between mt-2" },
+                      [
+                        _c("img", {
+                          staticClass: "ml-4 rounded-circle z-depth-2",
+                          attrs: {
+                            alt: "100x100",
+                            height: "50",
+                            width: "50",
+                            src: _vm.profile,
+                            "data-holder-rendered": "true"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-7" }, [
+                          _c("h5", [
+                            _vm._v(
+                              "John Doe\n                                        "
+                            ),
+                            _c(
+                              "h6",
+                              { staticClass: "h6-responsive text-muted" },
+                              [_vm._v("posted 15 hours ago")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass: "font-weight-bold",
+                              staticStyle: { "font-size": "0.7rem" }
+                            },
+                            [
+                              _vm._v("10 Ways Artists can improve their art"),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "i",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { "font-size": "0.5rem" }
+                                },
+                                [
+                                  _vm._v(
+                                    " Things you should know to better yourself"
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "mr-2",
+                          staticStyle: {
+                            width: "80px",
+                            height: "80px",
+                            padding: "10px",
+                            background: "#fff",
+                            margin: "0"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex justify-content-end" }, [
+                      _c("div", { staticClass: "float-right text-white" }, [
+                        _c("a", [_c("i", { staticClass: "fas fa-ellipsis-h" })])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layouts/Navigation.vue?vue&type=template&id=2c37d378&":
 /*!**********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layouts/Navigation.vue?vue&type=template&id=2c37d378& ***!
@@ -43507,23 +44780,9 @@ var render = function() {
         [
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "my-0 w-50" }, [
-            _c("input", {
-              staticClass: "form-control form-control-sm",
-              attrs: {
-                type: "text",
-                placeholder: "Search....",
-                options: _vm.options,
-                disabled: false
-              },
-              on: {
-                selected: _vm.validateSelection,
-                filter: _vm.getDropdownValues
-              }
-            })
-          ]),
-          _vm._v(" "),
           _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
           _vm._v(" "),
           _c("ul", { staticClass: "navbar-nav ml-auto mr-5 nav-flex-icons" }, [
             _c("li", { staticClass: "nav-item avatar dropdown" }, [
@@ -43553,7 +44812,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(4)
             ])
           ])
         ]
@@ -43588,6 +44847,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "mr-2 text-white" }, [
       _c("i", { staticClass: "fas fa-search" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "my-0 w-50" }, [
+      _c("input", {
+        staticClass: "form-control form-control-sm",
+        attrs: { type: "text", placeholder: "Search...." }
+      })
     ])
   },
   function() {
@@ -43855,7 +45125,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "collapsible-header waves-effect arrow-r mb-5",
-              attrs: { href: "/logout" }
+              attrs: { href: "/" }
             },
             [_vm._v("Logout")]
           )
@@ -63689,7 +64959,9 @@ Vue.component("notifications", __webpack_require__(/*! ./components/Notification
 Vue.component("works", __webpack_require__(/*! ./components/Works.vue */ "./resources/js/components/Works.vue")["default"]);
 Vue.component("saved", __webpack_require__(/*! ./components/Saved.vue */ "./resources/js/components/Saved.vue")["default"]);
 Vue.component("settings", __webpack_require__(/*! ./components/Settings.vue */ "./resources/js/components/Settings.vue")["default"]);
-Vue.component("games", __webpack_require__(/*! ./components/Games.vue */ "./resources/js/components/Games.vue")["default"]); //layouts
+Vue.component("games", __webpack_require__(/*! ./components/Games.vue */ "./resources/js/components/Games.vue")["default"]); //profile
+
+Vue.component("notify", __webpack_require__(/*! ./components/profile/_Notifications.vue */ "./resources/js/components/profile/_Notifications.vue")["default"]); //layouts
 
 Vue.component("Navigation", __webpack_require__(/*! ./layouts/Navigation.vue */ "./resources/js/layouts/Navigation.vue")["default"]);
 Vue.component("navbar", __webpack_require__(/*! ./layouts/_Navbar.vue */ "./resources/js/layouts/_Navbar.vue")["default"]);
@@ -64150,6 +65422,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/profile/_Notifications.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/profile/_Notifications.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_Notifications.vue?vue&type=template&id=17a8e47a& */ "./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a&");
+/* harmony import */ var _Notifications_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_Notifications.vue?vue&type=script&lang=js& */ "./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Notifications_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/profile/_Notifications.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notifications_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./_Notifications.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profile/_Notifications.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notifications_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./_Notifications.vue?vue&type=template&id=17a8e47a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profile/_Notifications.vue?vue&type=template&id=17a8e47a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notifications_vue_vue_type_template_id_17a8e47a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/layouts/Navigation.vue":
 /*!*********************************************!*\
   !*** ./resources/js/layouts/Navigation.vue ***!
@@ -64310,15 +65651,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/layouts/_Sidebar.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sidebar_vue_vue_type_template_id_200665c1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_Sidebar.vue?vue&type=template&id=200665c1& */ "./resources/js/layouts/_Sidebar.vue?vue&type=template&id=200665c1&");
 /* harmony import */ var _Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_Sidebar.vue?vue&type=script&lang=js& */ "./resources/js/layouts/_Sidebar.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -64348,7 +65688,7 @@ component.options.__file = "resources/js/layouts/_Sidebar.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/layouts/_Sidebar.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

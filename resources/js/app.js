@@ -28,6 +28,9 @@ Vue.component("saved", require("./components/Saved.vue").default);
 Vue.component("settings", require("./components/Settings.vue").default);
 Vue.component("games", require("./components/Games.vue").default);
 
+//profile
+Vue.component("notify", require("./components/profile/_Notifications.vue").default);
+
 //layouts
 Vue.component("Navigation", require("./layouts/Navigation.vue").default);
 Vue.component("navbar", require("./layouts/_Navbar.vue").default);
